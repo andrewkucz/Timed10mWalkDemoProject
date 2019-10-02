@@ -14,10 +14,13 @@ router.route('/add')
 router.route('/:id')
   .get(ctrl.read)
 
+router.route('/bypatient/:patientid')
+  .get(ctrl.findByPatientId)
+
 router.route('/update/:id')
   .post(ctrl.update)
 
 router.route('/delete/:id')
-  .post(ctrl.delete)
+  .delete(ctrl.delete)
 
 module.exports = router;

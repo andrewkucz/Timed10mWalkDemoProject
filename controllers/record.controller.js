@@ -1,26 +1,23 @@
 var Record = require('../models/record.model');
 
-// GET '/api/events'
+// GET '/api/records'
 exports.list = function(req, res) {
 
-    let q = req.query.type ? { event_type: req.query.type } : {};
-
-    Record.find(q, function (err, objs) {
+    Record.find().populate('patient').exec(function (err, objs) {
         if (err) {
-            res.status(400).send('Error getting events');
-            console.log(err);
+            res.status(400).send('Error getting records');
         } else {
             res.json(objs);
         }
     });
 }
 
-// POST '/api/events/add'
+// POST '/api/records/add'
 exports.create = function(req, res) {
     let obj = new Record(req.body);
     obj.save()
         .then(obj => {
-            res.status(200).json({'event': 'event added successfully'});
+            res.status(200).json(obj);
         })
         .catch(err => {
             console.log(err);
@@ -28,7 +25,7 @@ exports.create = function(req, res) {
         });
 }
 
-// GET '/api/events/:id'
+// GET '/api/records/:id'
 exports.read = function(req, res) {
     let id = req.params.id;
     Record.findById(id, function(err, obj) {
@@ -36,7 +33,7 @@ exports.read = function(req, res) {
     });
 }
 
-// POST '/api/events/update/:id'
+// POST '/api/records/update/:id'
 exports.update = function(req, res) {
     Record.findById(req.params.id, function(err, obj) {
         if (!obj)
@@ -58,7 +55,7 @@ exports.update = function(req, res) {
     });
 }
 
-// DELETE '/api/events/delete/:id'
+// DELETE '/api/records/delete/:id'
 exports.delete = function(req, res) {
     Record.findById(req.params.id, function(err, obj) {
         if (!obj)
@@ -73,3 +70,16 @@ exports.delete = function(req, res) {
     });
 }
 
+// /api/records/bypatient/:patientid
+exports.findByPatientId = function(req, res) {
+    Record.find({patient: req.params.patientid},function (err, obj) {
+        if(err)
+        {
+            res.status(400).send("Error finding records by patient");
+        }
+        else
+        {
+            res.json(obj);
+        }
+    });
+}
