@@ -9,6 +9,8 @@ const dotenv = require("dotenv").config()
 const PORT = process.env.PORT || 4000;
 const dburi = process.env.DB_URI;
 
+console.log('dburi is ' + dburi );
+
 mongoose.connect(dburi, { useNewUrlParser: true });
 const connection = mongoose.connection;
 connection.once('open', function() {
