@@ -13,52 +13,15 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import PostAddIcon from '@material-ui/icons/PostAdd';
 import Typography from '@material-ui/core/Typography';
-
 import Divider from '@material-ui/core/Divider';
 import TextField from '@material-ui/core/TextField';
-
 import Snackbar from '@material-ui/core/Snackbar';
 
-import TrialsTable from './TrialsTable';
 import axios from 'axios';
 
+import TrialsTable from './TrialsTable';
 
 const useStyles = makeStyles(theme => ({
-    root: {
-      display: 'flex',
-    },
-    toolbar: {
-      paddingRight: 24, // keep right padding when drawer closed
-    },
-    toolbarIcon: {
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'flex-end',
-      padding: '0 8px',
-      ...theme.mixins.toolbar,
-    },
-    appBar: {
-      zIndex: theme.zIndex.drawer + 1,
-      transition: theme.transitions.create(['width', 'margin'], {
-        easing: theme.transitions.easing.sharp,
-        duration: theme.transitions.duration.leavingScreen,
-      }),
-    },
-    menuButton: {
-      marginRight: 36,
-    },
-    menuButtonHidden: {
-      display: 'none',
-    },
-    title: {
-      flexGrow: 1,
-    },
-    appBarSpacer: theme.mixins.toolbar,
-    content: {
-      flexGrow: 1,
-      height: '100vh',
-      overflow: 'auto',
-    },
     container: {
       paddingTop: theme.spacing(4),
       paddingBottom: theme.spacing(4),
@@ -86,7 +49,6 @@ const useStyles = makeStyles(theme => ({
       fontWeight: 700
     }
 }));
-
 
 export default function Dashboard() {
 
@@ -126,7 +88,6 @@ export default function Dashboard() {
       setElapsedTime(0);
       setTime({...time, start: Date.now()});
     };
-
     const stop = () => {
       console.log('stop');
       setElapsedTime(0);
@@ -151,8 +112,6 @@ export default function Dashboard() {
         record.trials = trials.map(t => { return {duration: t}});
         record.note = note;
         axios.post('/api/records/add',record).then(res=>{
-          console.log(res.data);
-          //setCurrentPatient({});
           setNote('');
           setTrials([]);
           setSnackbar({
@@ -191,16 +150,14 @@ export default function Dashboard() {
       });
 
     };
-    const handleChange = () => event => {
+    const handleNoteChange = () => event => {
       setNote(event.target.value);
     };
-
     const handleSnackbarClose = () => {
       setSnackbar({...snackbar,open:false});
     }
 
     const onDeleteClick = (i) => {
-      console.log('deleting ' + i);
       setTrials(trials.filter((t,index) => (index!==i)));
     }
 
@@ -214,10 +171,8 @@ export default function Dashboard() {
     });
     React.useEffect(() => {
       function tick() {
-        console.log('ticking');
         savedCallback.current();
       }
-
       if(running)
       {
         let id = setInterval(tick, 10);
@@ -271,7 +226,7 @@ export default function Dashboard() {
                         multiline
                         rows="11"
                         value={note}
-                        onChange={handleChange()}
+                        onChange={handleNoteChange()}
                         className={classes.textField}
                       />
 

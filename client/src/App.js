@@ -21,7 +21,6 @@ import BarChartIcon from '@material-ui/icons/BarChart';
 
 import Dashboard from './components/Dashboard';
 import Patients from './components/Patients';
-import SinglePatient from './components/SinglePatient';
 import Records from './components/Records';
 import Notfound from './components/notfound';
 
@@ -186,7 +185,6 @@ export default function App() {
           <Route exact path="/" component={Dashboard} />
           <Route exact path="/records" component={Records} />
           <Route exact path="/patients" component={Patients} />
-          <Route exact path="/patient/:id" component={SinglePatient} />
           <Route component={Notfound} />
         </Switch>
 
