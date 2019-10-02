@@ -1,6 +1,6 @@
 var Patient = require('../models/patient.model');
 
-// GET '/api/players'
+// GET '/api/patients'
 exports.list = function(req, res) {
     Patient.find(function(err, objs) {
         if (err) {
@@ -11,7 +11,7 @@ exports.list = function(req, res) {
     });
 }
 
-// POST '/api/players/add'
+// POST '/api/patients/add'
 exports.create = function(req, res) {
     let obj = new Patient(req.body);
     obj.save()
@@ -23,7 +23,7 @@ exports.create = function(req, res) {
         });
 }
 
-// GET '/api/players/:id'
+// GET '/api/patients/:id'
 exports.read = function(req, res) {
     let id = req.params.id;
     Patient.findById(id, function(err, obj) {
@@ -31,7 +31,7 @@ exports.read = function(req, res) {
     });
 }
 
-// POST '/api/players/update/:id'
+// POST '/api/patients/update/:id'
 exports.update = function(req, res) {
     Patient.findById(req.params.id, function(err, obj) {
         if (!obj)
@@ -53,7 +53,7 @@ exports.update = function(req, res) {
     });
 }
 
-// DELETE '/api/players/delete/:id'
+// DELETE '/api/patients/delete/:id'
 exports.delete = function(req, res) {
     Patient.findById(req.params.id, function(err, obj) {
         if (!obj)

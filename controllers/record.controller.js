@@ -70,7 +70,7 @@ exports.delete = function(req, res) {
     });
 }
 
-// /api/records/bypatient/:patientid
+// GET '/api/records/bypatient/:patientid'
 exports.findByPatientId = function(req, res) {
     Record.find({patient: req.params.patientid},function (err, obj) {
         if(err)
